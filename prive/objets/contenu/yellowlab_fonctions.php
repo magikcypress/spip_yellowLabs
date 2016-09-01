@@ -13,6 +13,12 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
+/**
+ * Traiter les données pour les afficher dans un tableau
+ *
+ * @param string $href
+ * @return array resultat
+ */
 function yellowLab($href) {
 
 	$result[] = attrape_yellowlab($href);
@@ -20,6 +26,12 @@ function yellowLab($href) {
 	return $result;
 }
 
+/**
+ * Traiter les données plus profonde
+ *
+ * @param string $texte
+ * @return array resultat
+ */
 function tableau_yellowLab($texte) {
 
 	if (isset($texte)) {
@@ -31,6 +43,12 @@ function tableau_yellowLab($texte) {
 	return $donnees;
 }
 
+/**
+ * Afficher le code couleur du score
+ *
+ * @param string $nombre
+ * @return array resultat
+ */
 function score($nombre) {
 	if (is_numeric($nombre) && $nombre > 80) {
 		return 'A';

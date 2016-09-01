@@ -14,6 +14,12 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
+/**
+ * Créer le fichier JSON
+ *
+ * @param string $href
+ * @return array resultat
+ */
 function yellowlab_creer_json($href) {
 
 	include_spip('inc/distant');
