@@ -1,0 +1,11 @@
+<BOUCLE_site_monitor(SYNDIC){id_syndic}{statut IN prop,publie}>
+	[(#URL_SITE|yellowlab_creer_json)]
+
+	#SET{json,#EVAL{_DIR_TMP}|concat{yellowlab_#ID_SYNDIC.json}}
+	<ul>
+		<BOUCLE_json(DATA){si #GET{json}|file_exists}{source json, #GET{json}}>
+			<li>[(#CLE)]</li>
+			<li>[(#VALEUR{page})]</li>
+		</BOUCLE_json>
+	</ul>
+</BOUCLE_site_monitor>

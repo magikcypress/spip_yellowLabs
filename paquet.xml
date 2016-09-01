@@ -1,0 +1,27 @@
+<paquet
+	prefix="yellowlab"
+	categorie="statistique"
+	version="1.0.0"
+	etat="dev"
+	compatibilite="[3.0.0;3.1.*]"
+	logo="prive/themes/spip/images/yellowlab-32.png"
+	documentation=""
+	schema="1.0"
+>
+
+	<nom>Yellowlab</nom>
+	<!--Ce plugin permet de discuter avec l'API yellowlab.tools-->
+
+	<auteur>cyp</auteur>
+
+	<licence>GNU/GPL</licence>
+
+	<necessite nom="sites" />
+	<necessite nom="d3js" />
+	
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/yellowlab.php" />
+	<pipeline nom="d3js_plugins" inclure="yellowlab_pipelines.php" />
+	<pipeline nom="affiche_milieu" inclure="yellowlab_pipelines.php" />
+	<pipeline nom="header_prive_css" action="header_prive_css" inclure="yellowlab_pipelines.php" />
+	
+</paquet>

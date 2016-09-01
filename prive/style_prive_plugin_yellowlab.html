@@ -1,0 +1,44 @@
+[(#REM)
+
+	Ce squelette definit les styles de l'espace prive
+
+	Note: l'entete "Vary:" sert a repousser l'entete par
+	defaut "Vary: Cookie,Accept-Encoding", qui est (un peu)
+	genant en cas de "rotation du cookie de session" apres
+	un changement d'IP (effet de clignotement).
+
+	ATTENTION: il faut absolument le charset sinon Firefox croit que
+	c'est du text/html !
+	<style>
+]
+#CACHE{3600*100,cache-client}
+#HTTP_HEADER{Content-Type: text/css; charset=iso-8859-15}
+#HTTP_HEADER{Vary: Accept-Encoding}
+
+.boite-score, .boite-subscore, .score-yellowlab, .score, .subscore-yellowlab, .label-yellowlab { text-align: center; }
+
+.boite-score { display: block; padding: .5em; }
+.score-yellowlab { font-size: 2em; }
+.boite-score, .boite-subscore, .subscore-yellowlab, .label-yellowlab { font-size: 1.2em; }
+
+.boite-score.A,
+.boite-subscore.A,
+.score.A { background: #0C4; }
+.boite-score.B,
+.boite-subscore.B,
+.score.B { background: #CD0; }
+.boite-score.C,
+.boite-subscore.C,
+.score.C { background: #FD2; }
+.boite-score.D,
+.boite-subscore.D,
+.score.D { background: #FA2; }
+.boite-score.E,
+.boite-subscore.E,
+.score.E { background: #F60; }
+.boite-score.F,
+.boite-subscore.F,
+.score.F { background: #F22; }
+.boite-score.NA,
+.boite-subscore.NA,
+.score.NA { background: #CCC; }

@@ -1,0 +1,75 @@
+[(#ENV{url_site_spip}|oui)
+	#SET{json,#EVAL{_DIR_VAR}|concat{yellowlab/yellowlab_courant.json}}
+	#SET{var, #ENV{url_site_spip}}
+]
+[(#ENV{url_site_spip}|non)
+	#SET{json,#EVAL{_DIR_VAR}|concat{yellowlab/yellowlab_#ENV{id_syndic}.json}}
+	#SET{var, #ENV{id_syndic}}
+]
+
+<div class="liste-objets sites yellowlab">
+
+<B_liste_yellowlab>
+<table class="spip liste">
+<caption><strong class="caption"><:yellowlab:titre_yellowlab:></strong></caption>
+	<thead>
+		<tr>
+			<th colspan="3"><:yellowlab:globalscore_yellowlab:></th>
+		</tr>
+	</thead>
+	<tbody>
+			<tr>
+				<th scope='col'><:pagespeed:form_date_fichier:></th>
+				<td>[(#VAL{'Y-m-d H:i:s'}|date{[(#GET{json}|filemtime)]}|affdate_heure)]</td>
+			</tr>
+			<BOUCLE_liste_yellowlab(DATA){si #GET{json}|file_exists}{source json, #GET{json}}>
+				[(#CLE|=={runid}|oui)
+					[(#SET{runid, #VALEUR})]
+				]
+				<BOUCLE_condition_globalscore(CONDITION){si #CLE|=={globalscore}}>
+					<tr>
+						<th colspan="3" class="score-yellowlab" scope="col">
+						<div class="boite-score [(#VALEUR|score)]">[(#VALEUR|score)]</div> 
+						<span class="boite-score [(#VALEUR|score)]">#VALEUR/100</span></th>
+					</tr>
+				</BOUCLE_condition_globalscore>
+				<BOUCLE_condition_donnees(CONDITION){si #CLE|=={donnees}}>
+					<BOUCLE_liste_yellowLab_donnees(DATA){source table, #VALEUR|tableau_yellowLab}>
+					<tr>
+						[<th colspan="3" class="label-yellowlab" scope="col">(#VALEUR|table_valeur{label})</th>]
+						[<td colspan="3">
+							<div class="boite-subscore [(#VALEUR|table_valeur{categoryScore}|score)]">
+								(#VALEUR|table_valeur{categoryScore}|score)
+							</div>
+						</td>]
+						[<td colspan="3">
+							<div class="boite-subscore">
+								(#VALEUR|table_valeur{rule})
+							</div>
+						</td>]
+					</tr>
+					<tr>
+						[<th class="rules">(#VALEUR|table_valeur{policy/label})</th>]
+						[<td class="rules">
+							(#VALEUR|table_valeur{policy/message})
+						</td>]
+						[<td class="score [(#VALEUR|table_valeur{score}|score)]">(#VALEUR|table_valeur{value})</td>]
+					</tr>
+					</BOUCLE_liste_yellowLab_donnees>
+				</BOUCLE_condition_donnees>
+			</BOUCLE_liste_yellowlab>
+	</tbody>
+</table>
+	
+</B_liste_yellowlab>[
+<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_yellowlab>
+</BOUCLE_site_monitor>
+</div>
+
+<div class="boutons_droite">
+	<a href="#CONFIG{yellowlab/url_config}result/#GET{runid}" title="<:yellowlab:details_yellowlab:>"><:yellowlab:details_yellowlab:></a>
+	[(#BOUTON_ACTION{
+	<:yellowlab:form_recuperer_yellowlab:>, 
+	[(#URL_ACTION_AUTEUR{recuperer_yellowlab_json, #GET{var}, [(#SELF|parametre_url{'var_mode', 'recalcul'})]})],ajax})]
+</div>
